@@ -270,3 +270,10 @@ For more details, see the official docs:
 - [React](https://react.dev/)
 - [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
+
+---
+
+## Project Template Author
+
+This template and documentation were generated and architected by GitHub Copilot, your AI
+programming assistant. If you have questions, want to extend the template, or need more learning resources, just ask Copilot for help!
