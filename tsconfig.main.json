@@ -12,6 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node", "electron"]
   },
-  "include": ["main.ts"],
+  "include": ["main.ts", "preload.ts"],
   "exclude": ["node_modules", "renderer"]
 }
