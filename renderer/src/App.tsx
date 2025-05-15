@@ -3,16 +3,19 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+// Main React component for the renderer process.
+// Demonstrates UI, state, and safe IPC communication with Electron main process.
 function App() {
   const [count, setCount] = useState(0);
-  const [mainMsg, setMainMsg] = useState("");
-  const [pong, setPong] = useState("");
+  const [mainMsg, setMainMsg] = useState(""); // Message from main process
+  const [pong, setPong] = useState(""); // Reply from main process
 
   useEffect(() => {
-    // Listen for messages from main process
+    // Listen for messages from main process via the exposed API
     window.electronAPI?.onMainMessage?.((msg: string) => setMainMsg(msg));
   }, []);
 
+  // Send a 'ping' message to the main process and display the reply
   const sendPing = async () => {
     if (window.electronAPI?.ping) {
       const response = await window.electronAPI.ping("Hello from Renderer!");
@@ -37,6 +40,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
+      {/* IPC Demo Section */}
       <h2>IPC Demo</h2>
       <button onClick={sendPing}>Send Ping to Main</button>
       <div>Main says: {mainMsg}</div>
