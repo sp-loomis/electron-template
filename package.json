@@ -2,13 +2,13 @@
   "name": "electron",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "dev": "concurrently \"npm:dev:renderer\" \"npm:dev:electron\"",
     "dev:renderer": "cd renderer && npm run dev",
     "dev:electron": "wait-on http://localhost:5173 && electron .",
-    "build": "cd renderer && npm run build && tsc -p tsconfig.main.json",
-    "start": "npm run build && electron .",
+    "build": "cd renderer && npm run build && cd .. && tsc -p tsconfig.main.json",
+    "start": "npm run build && electron dist/main.js",
     "build:main": "tsc --project tsconfig.main.json",
     "start:dev": "concurrently \"npm run dev:renderer\" \"wait-on http://localhost:5173 && NODE_ENV=development electron .\""
   },
