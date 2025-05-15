@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 
 function createWindow() {
@@ -18,6 +18,11 @@ function createWindow() {
   } else {
     win.loadFile(path.join(__dirname, "../renderer/dist/index.html"));
   }
+
+  // Example: Send a message to renderer after window is ready
+  win.webContents.on("did-finish-load", () => {
+    win.webContents.send("main-to-renderer", "Hello from Electron main process!");
+  });
 }
 
 app.whenReady().then(() => {
@@ -32,4 +37,9 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+});
+
+// IPC handler example
+ipcMain.handle("ping", async (_event, arg) => {
+  return `Pong from main! You said: ${arg}`;
 });

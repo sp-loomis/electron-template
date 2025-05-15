@@ -142,6 +142,32 @@ This will build both the renderer and main process, then launch Electron with th
 
 ---
 
+## IPC (Inter-Process Communication) Demo Explained
+
+This template includes a simple example of safe communication between the Electron main process and the React renderer using Electron's IPC system and a secure preload script.
+
+**How it works:**
+
+1. **Main Process (`main.ts`):**
+   - Listens for a `ping` message from the renderer and replies with a string.
+   - Sends a message (`main-to-renderer`) to the renderer when the window finishes loading.
+
+2. **Preload Script (`preload.ts`):**
+   - Uses Electron's `contextBridge` to safely expose two APIs to the renderer:
+     - `ping(msg: string)`: Sends a message to the main process and returns its reply.
+     - `onMainMessage(callback)`: Listens for messages from the main process.
+
+3. **Renderer (`App.tsx`):**
+   - Calls `window.electronAPI.ping()` to send a message to the main process and displays the reply.
+   - Listens for messages from the main process and displays them in the UI.
+
+**Why this is best practice:**
+- The renderer never accesses Node.js or Electron APIs directly, which keeps your app secure.
+- All communication goes through the preload script, which acts as a safe bridge.
+- You can extend this pattern to add more APIs for your app's needs.
+
+---
+
 ## Tips for Beginners
 - Keep React code in `renderer/src/`.
 - Use Vite for fast development and hot module replacement.
